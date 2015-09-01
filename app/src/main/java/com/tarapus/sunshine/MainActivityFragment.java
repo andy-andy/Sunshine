@@ -66,20 +66,20 @@ public class MainActivityFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         String[] forecastArray = {
-                "Today - sunny  - 88/67",
-                "Tomorrow - sfsf - sfsf",
-                "Wed - sfsf - fsfssf",
-                "Thursday - sasf- sfsf",
-                "friday - sfsf - safsf",
-                "Sat - asfsf - asfsf",
-                "Sunday - sfsf - sfsf"
+                "Today - Refresh data from the menu overflow",
+                "Tomorrow - Refresh data from the menu overflow",
+                "Wed - Refresh data from the menu overflow",
+                "Thursday - Refresh data from the menu overflow",
+                "friday - Refresh data from the menu overflow",
+                "Sat - Refresh data from the menu overflow",
+                "Sunday - Refresh data from the menu overflow"
         };
 
-        List<String> weekForecast = new ArrayList<String>(
+        List<String> weekForecast = new ArrayList<>(
                 Arrays.asList(forecastArray));
 
         //Adapter
-        mForecastAdapter = new ArrayAdapter<String>(
+        mForecastAdapter = new ArrayAdapter<>(
                 getActivity(),
                 R.layout.list_item_forecast,
                 R.id.list_item_forecast_textview,
@@ -194,6 +194,17 @@ public class MainActivityFragment extends Fragment {
                 e.printStackTrace();
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            if(result != null) {
+                mForecastAdapter.clear();
+                for(String dayForecastStr : result) {
+                    mForecastAdapter.add(dayForecastStr);
+                }
+                //New data is back from the server
+            }
         }
     }
 
