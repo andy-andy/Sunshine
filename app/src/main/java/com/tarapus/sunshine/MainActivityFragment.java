@@ -70,7 +70,7 @@ public class MainActivityFragment extends Fragment {
                 "Tomorrow - Refresh data from the menu overflow",
                 "Wed - Refresh data from the menu overflow",
                 "Thursday - Refresh data from the menu overflow",
-                "friday - Refresh data from the menu overflow",
+                "Friday - Refresh data from the menu overflow",
                 "Sat - Refresh data from the menu overflow",
                 "Sunday - Refresh data from the menu overflow"
         };
@@ -201,7 +201,7 @@ public class MainActivityFragment extends Fragment {
             if(result != null) {
                 mForecastAdapter.clear();
                 for(String dayForecastStr : result) {
-                    mForecastAdapter.add(dayForecastStr);
+                    mForecastAdapter.addAll(dayForecastStr);
                 }
                 //New data is back from the server
             }
