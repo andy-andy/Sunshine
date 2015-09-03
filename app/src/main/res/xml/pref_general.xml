@@ -10,8 +10,4 @@
         android:inputMethod="text"
         android:singleLine="true"/>
 
-
-
-
-
 </PreferenceScreen>
