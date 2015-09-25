@@ -12,7 +12,7 @@ public class WeatherDataParser {
         JSONArray days = weather.getJSONArray("list");
 
         JSONObject dayInfo = days.getJSONObject(dayIndex);
-        JSONObject  temperatureInfo = dayInfo.getJSONObject("temp");
+        JSONObject temperatureInfo = dayInfo.getJSONObject("temp");
 
         return temperatureInfo.getDouble("max");
     }
