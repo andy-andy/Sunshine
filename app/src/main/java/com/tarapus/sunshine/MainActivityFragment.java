@@ -30,9 +30,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 public class MainActivityFragment extends Fragment {
 
@@ -45,6 +43,7 @@ public class MainActivityFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.forecastfragment, menu);
@@ -54,17 +53,20 @@ public class MainActivityFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_refresh:
-                FetchWeatherTask weatherTask = new FetchWeatherTask();
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                String location = prefs.getString(getString(R.string.pref_location_key),
-                        getString(R.string.pref_location_default));
-                weatherTask.execute(location);
+                updateWeather();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    //Helper method
+    private void updateWeather() {
+        FetchWeatherTask weatherTask = new FetchWeatherTask();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = prefs.getString(getString(R.string.pref_location_key),
+                getString(R.string.pref_location_default));
+        weatherTask.execute(location);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,26 +74,12 @@ public class MainActivityFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        String[] forecastArray = {
-                "Today - Refresh data from the menu overflow",
-                "Tomorrow - Refresh data from the menu overflow",
-                "Wed - Refresh data from the menu overflow",
-                "Thursday - Refresh data from the menu overflow",
-                "Friday - Refresh data from the menu overflow",
-                "Sat - Refresh data from the menu overflow",
-                "Sunday - Refresh data from the menu overflow"
-        };
-
-        List<String> weekForecast = new ArrayList<>(
-                Arrays.asList(forecastArray));
-
         //Adapter
-        mForecastAdapter = new ArrayAdapter<>(
+        mForecastAdapter = new ArrayAdapter<String>(
                 getActivity(),
                 R.layout.list_item_forecast,
                 R.id.list_item_forecast_textview,
-                weekForecast
-        );
+                new ArrayList<String>());
 
         ListView listView = (ListView) rootView.findViewById(R.id.list_view_forecast);
         listView.setAdapter(mForecastAdapter);
@@ -108,6 +96,12 @@ public class MainActivityFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateWeather();
     }
 
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
