@@ -1,8 +1,10 @@
-package com.tarapus.sunshine;
+package com.tarapus.sunshine.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import com.tarapus.sunshine.R;
 
 public class SettingsActivity extends Activity {
 
@@ -24,9 +26,7 @@ public class SettingsActivity extends Activity {
 
             addPreferencesFromResource(R.xml.pref_general_location);
         }
-
     }
-
 }
 
 

@@ -1,4 +1,4 @@
-package com.tarapus.sunshine;
+package com.tarapus.sunshine.network;
 
 import org.json.JSONArray;
 import org.json.JSONException;
